@@ -16,26 +16,9 @@
     }
     .play-link {
         width: 40vw;
-        height: 10vh;
         margin: 5vh 30vw;
-        line-height: 10vh;
-        border: 5px solid $white;
-        border-radius: 1rem;
-        -webkit-box-shadow: 0px 0px 16px 0px $white;
-        -moz-box-shadow: 0px 0px 16px 0px $white;
-        box-shadow: 0px 0px 16px 0px $white;
-        text-align: center;
-        text-transform: uppercase;
-        text-shadow: 0px 0px 1rem rgba($white, 1);
+        @include default-button($white, $purple);
         transition: 0.3s;
-        &:hover {
-            background: darken($color: $black, $amount: 10%);
-            transform: scale(1.05);
-            -webkit-box-shadow: 0px 0px 32px 0px $purple;
-            -moz-box-shadow: 0px 0px 32px 0px $purple;
-            box-shadow: 0px 0px 32px 0px $purple;
-            border-color: $purple;
-        }
         a {
             text-decoration: none;
             color: $white;

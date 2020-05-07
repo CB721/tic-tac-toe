@@ -203,3 +203,11 @@
         }
     }
 }
+.start-game {
+    color: $white;
+    width: 50%;
+    @include default-button($white, $red);
+    &:hover {
+        cursor: pointer;
+    }
+}

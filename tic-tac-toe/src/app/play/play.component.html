@@ -8,46 +8,54 @@
         <div class="game-messages">
             {{winner}}
         </div>
-        <div *ngIf="isX; then thenBlock else elseBlock"></div>
-        <ng-template #thenBlock>
-            <div class="game-messages player-header">
-                Go Player X!
+        <div *ngIf="isGameStart; then startBlock else gameBlock"></div>
+        <ng-template #startBlock>
+            <div class="game-messages">
+                <button (click)="startGame()" class="start-game">New Game</button>
             </div>
         </ng-template>
-        <ng-template #elseBlock>
-            <div class="game-messages player-header">
-                Go Player O!
+        <ng-template #gameBlock>
+            <div *ngIf="isX; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+                <div class="game-messages player-header">
+                    Go Player X!
+                </div>
+            </ng-template>
+            <ng-template #elseBlock>
+                <div class="game-messages player-header">
+                    Go Player O!
+                </div>
+            </ng-template>
+            <div class="game-board">
+                <div class="box left-bottom-border" (click)="registerMove('box1')">
+                    <div ngClass={{boardSections.box1}}></div>
+                </div>
+                <div class="box left-bottom-border" (click)="registerMove('box2')">
+                    <div ngClass={{boardSections.box2}}></div>
+                </div>
+                <div class="box" (click)="registerMove('box3')">
+                    <div ngClass={{boardSections.box3}}></div>
+                </div>
+                <div class="box left-bottom-border" (click)="registerMove('box4')">
+                    <div ngClass={{boardSections.box4}}></div>
+                </div>
+                <div class="box left-bottom-border" (click)="registerMove('box5')">
+                    <div ngClass={{boardSections.box5}}></div>
+                </div>
+                <div class="box top-bottom-border" (click)="registerMove('box6')">
+                    <div ngClass={{boardSections.box6}}></div>
+                </div>
+                <div class="box" (click)="registerMove('box7')">
+                    <div ngClass={{boardSections.box7}}></div>
+                </div>
+                <div class="box left-right-border" (click)="registerMove('box8')">
+                    <div ngClass={{boardSections.box8}}></div>
+                </div>
+                <div class="box" (click)="registerMove('box9')">
+                    <div ngClass={{boardSections.box9}}></div>
+                </div>
             </div>
         </ng-template>
-        <div class="game-board">
-            <div class="box left-bottom-border" (click)="registerMove('box1')">
-                <div ngClass={{boardSections.box1}}></div>
-            </div>
-            <div class="box left-bottom-border" (click)="registerMove('box2')">
-                <div ngClass={{boardSections.box2}}></div>
-            </div>
-            <div class="box" (click)="registerMove('box3')">
-                <div ngClass={{boardSections.box3}}></div>
-            </div>
-            <div class="box left-bottom-border" (click)="registerMove('box4')">
-                <div ngClass={{boardSections.box4}}></div>
-            </div>
-            <div class="box left-bottom-border" (click)="registerMove('box5')">
-                <div ngClass={{boardSections.box5}}></div>
-            </div>
-            <div class="box top-bottom-border" (click)="registerMove('box6')">
-                <div ngClass={{boardSections.box6}}></div>
-            </div>
-            <div class="box" (click)="registerMove('box7')">
-                <div ngClass={{boardSections.box7}}></div>
-            </div>
-            <div class="box left-right-border" (click)="registerMove('box8')">
-                <div ngClass={{boardSections.box8}}></div>
-            </div>
-            <div class="box" (click)="registerMove('box9')">
-                <div ngClass={{boardSections.box9}}></div>
-            </div>
-        </div>
     </div>
     <div class="col">
         <div class="player-header headers">

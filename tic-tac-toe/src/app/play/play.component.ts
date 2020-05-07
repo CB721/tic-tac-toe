@@ -28,8 +28,9 @@ export class PlayComponent implements OnInit {
       box8: "",
       box9: ""
     }
-  // boolean to track whose turn it is
+  // boolean to track whose turn it is and if the game has started
   isX: boolean = true;
+  isGameStart: boolean = true;
   // strings for the character
   xColor: string = "blue";
   oColor: string = "green";
@@ -38,7 +39,17 @@ export class PlayComponent implements OnInit {
   constructor() {
     console.log(this.boardSections.box1);
   }
-
+  startGame() {
+    // change game start to false
+    this.isGameStart = false;
+    // randomly select which user will go first
+    // generate number between 0 and 1
+    const randomNum = Math.floor(Math.random() * 2);
+    // if it is one, set it to o's turn, otherwise, leave it as x's turn
+    if (randomNum) {
+      this.isX = false;
+    }
+  }
   ngOnInit(): void {
     // check local storage for existing game
     const savedGame = JSON.parse(localStorage.getItem("currentGame"));
@@ -110,7 +121,6 @@ export class PlayComponent implements OnInit {
     }
   }
   saveCompleteGame(): void {
-    console.log("time to save the game");
     // grab all saved games
     const savedGames = JSON.parse(localStorage.getItem("previousGames"));
     // if there are any previous games saved to local storage
@@ -123,6 +133,12 @@ export class PlayComponent implements OnInit {
       // if there aren't any games currently in local storage, save the current game
       localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
     }
+    // wait three seconds before resetting the board
+    setTimeout(() => {
+      this.isGameStart = true;
+      this.winner = "";
+      this.resetBoard();
+    }, 3000);
   }
   // win can be horizontal, vertical or diagonal
   checkWinner(): boolean {
@@ -160,6 +176,7 @@ export class PlayComponent implements OnInit {
       this.saveCompleteGame();
       // wait three seconds before clearing the winner message, resetting the board and updating local storage
       setTimeout(() => {
+        this.isGameStart = true;
         this.winner = "";
         this.resetBoard();
       }, 3000);
