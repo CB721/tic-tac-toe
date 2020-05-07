@@ -1,0 +1,49 @@
+@import "../app.component.scss";
+
+.home {
+    width: 100vw;
+    height: 80vh;
+    overflow: scroll;
+    background: rgba($color: $black, $alpha: 0.965);
+    display: block;
+    .game-desc {
+        font-family: Arial, Helvetica, sans-serif;
+        color: $white;
+        padding-top: 10vh;
+        line-height: 10vh;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .play-link {
+        width: 40vh;
+        height: 10vh;
+        margin: 0 30vw;
+        line-height: 10vh;
+        border: 5px solid $white;
+        border-radius: 1rem;
+        -webkit-box-shadow: 0px 0px 16px 0px $white;
+        -moz-box-shadow: 0px 0px 16px 0px $white;
+        box-shadow: 0px 0px 16px 0px $white;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 0px 0px 1rem rgba($white, 1);
+        transition: 0.3s;
+        &:hover {
+            background: darken($color: $black, $amount: 10%);
+            cursor: pointer;
+            transform: scale(1.05);
+            -webkit-box-shadow: 0px 0px 32px 0px $purple;
+            -moz-box-shadow: 0px 0px 32px 0px $purple;
+            box-shadow: 0px 0px 32px 0px $purple;
+            border-color: $purple;
+            color: $purple;
+        }
+        a {
+            text-decoration: none;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
