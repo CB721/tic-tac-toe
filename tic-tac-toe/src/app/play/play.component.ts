@@ -70,7 +70,7 @@ export class PlayComponent implements OnInit {
       this.isX = !this.isX;
     }
   }
-  resetBoard():void {
+  resetBoard(): void {
     // set all of the boxes back to an empty string
     this.boardSections = {
       box1: "",
@@ -85,7 +85,7 @@ export class PlayComponent implements OnInit {
     }
   }
   // win can be horizontal, vertical or diagonal
-  checkWinner():boolean {
+  checkWinner(): boolean {
     // check winning combinations for every row connected to box1
     if (this.boardSections.box1 === this.boardSections.box2 && this.boardSections.box1 === this.boardSections.box3 && this.boardSections.box1) {
       return true;
@@ -108,7 +108,17 @@ export class PlayComponent implements OnInit {
     } else if (this.boardSections.box9 === this.boardSections.box8 && this.boardSections.box9 === this.boardSections.box7 && this.boardSections.box9) {
       return true;
     } else {
-      return false;
+      // iterate over entire object to check if all boxes have been selected
+      for (const box in this.boardSections) {
+        if (!this.boardSections[box]) {
+          return false;
+        }
+      }
+      this.winner = "Tie!";
+      setTimeout(() => {
+        this.winner = "";
+        this.resetBoard();
+      }, 3000);
     }
   }
 }
