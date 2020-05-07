@@ -40,6 +40,28 @@ export class PlayComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // check local storage for existing game
+    const savedGame = JSON.parse(localStorage.getItem("currentGame"));
+    // if there is a saved game
+    if (savedGame) {
+      // set board to saved game
+      this.boardSections = savedGame;
+      // iterate over saved game object
+      // tally for how many x's there are
+      let xTally: number = 0;
+      let oTally: number = 0;
+      for (const box in savedGame) {
+        if (savedGame[box].indexOf("x") >= 0) {
+          xTally++;
+        } else if (savedGame[box].indexOf("o") >= 0) {
+          oTally++;
+        }
+      }
+      // if there are less o's than x's, then it is player o's turn
+      if (oTally < xTally) {
+        this.isX = false;
+      }
+    }
   }
   registerMove(box) {
     // if a winner has been selected, a previous game has been won
@@ -64,8 +86,11 @@ export class PlayComponent implements OnInit {
       this.winner = `${this.isX ? "Player X Wins!" : "Player O Wins!"}`
       // switch to the next player
       this.isX = !this.isX;
-      // if there isn't a winner, switch to the next player
+      // save current game to list of previous games
+      this.saveCompleteGame();
     } else {
+      // saved to local storage
+      localStorage.setItem("currentGame", JSON.stringify(this.boardSections))
       // switch to next player
       this.isX = !this.isX;
     }
@@ -82,6 +107,21 @@ export class PlayComponent implements OnInit {
       box7: "",
       box8: "",
       box9: ""
+    }
+  }
+  saveCompleteGame(): void {
+    console.log("time to save the game");
+    // grab all saved games
+    const savedGames = JSON.parse(localStorage.getItem("previousGames"));
+    // if there are any previous games saved to local storage
+    if (savedGames) {
+      // add current game to the beginning of the array
+      savedGames.unshift(this.boardSections);
+      // save to local storage
+      localStorage.setItem("previousGames", JSON.stringify(savedGames));
+    } else {
+      // if there aren't any games currently in local storage, save the current game
+      localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
     }
   }
   // win can be horizontal, vertical or diagonal
@@ -114,7 +154,11 @@ export class PlayComponent implements OnInit {
           return false;
         }
       }
+      // show message letting user know the game was a tie
       this.winner = "Tie!";
+      // save the game to the previous games
+      this.saveCompleteGame();
+      // wait three seconds before clearing the winner message, resetting the board and updating local storage
       setTimeout(() => {
         this.winner = "";
         this.resetBoard();
