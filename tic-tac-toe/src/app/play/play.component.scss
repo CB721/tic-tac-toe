@@ -26,7 +26,6 @@
             margin: 20vh auto;
             width: 27vw;
             height: 27vw;
-            border: 1px solid $white;
             display: grid;
             grid-template-rows: 9vw 9vw 9vw;
             grid-template-columns: 9vw 9vw 9vw;
@@ -34,7 +33,163 @@
                 float: left;
                 width: 9vw;
                 height: 9vw;
-                border: 1px solid $white;
+                &.left-bottom-border {
+                    border-right: 1px solid rgba($color: $white, $alpha: 0.965);
+                    border-bottom: 1px solid rgba($color: $white, $alpha: 0.965);
+                }
+                &.left-right-border {
+                    border-right: 1px solid rgba($color: $white, $alpha: 0.965);
+                    border-left: 1px solid rgba($color: $white, $alpha: 0.965);
+                }
+                &.top-bottom-border {
+                    border-top: 1px solid rgba($color: $white, $alpha: 0.965);
+                    border-bottom: 1px solid rgba($color: $white, $alpha: 0.965);
+                }
+                .x {
+                    width: 6vw;
+                    height: 6vw;
+                    position: relative;
+                    margin: 0 auto;
+                    &.red {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $red;
+                            box-shadow: 0 0 10px $red;
+                        }
+                    }
+                    &.orange {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $orange;
+                            box-shadow: 0 0 10px $orange;
+                        }
+                    }
+                    &.yellow {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $yellow;
+                            box-shadow: 0 0 10px $yellow;
+                        }
+                    }
+                    &.green {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $green;
+                            box-shadow: 0 0 10px $green;
+                        }
+                    }
+                    &.blue {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $blue;
+                            box-shadow: 0 0 10px $blue;
+                        }
+                    }
+                    &.purple {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $purple;
+                            box-shadow: 0 0 10px $purple;
+                        }
+                    }
+                    &.pink {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $pink;
+                            box-shadow: 0 0 10px $pink;
+                        }
+                    }
+                    &::before {
+                        -webkit-transform: rotate(45deg);
+                        -moz-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+                    &::after {
+                        -webkit-transform: rotate(-45deg);
+                        -moz-transform: rotate(-45deg);
+                        transform: rotate(-45deg);
+                    }
+                }
+                .o {
+                    margin: 1.5vw auto;
+                    width: 5vw;
+                    height: 5vw;
+                    border-radius: 50%;
+                    border: 5px solid;
+                    &.red {
+                        border-color: $red;
+                        box-shadow: 0 0 10px $red;
+                    }
+                    &.orange {
+                        border-color: $orange;
+                        box-shadow: 0 0 10px $orange;
+                    }
+                    &.yellow {
+                        border-color: $yellow;
+                        box-shadow: 0 0 10px $yellow;
+                    }
+                    &.green {
+                        border-color: $green;
+                        box-shadow: 0 0 10px $green;
+                    }
+                    &.blue {
+                        border-color: $blue;
+                        box-shadow: 0 0 10px $blue;
+                    }
+                    &.purple {
+                        border-color: $purple;
+                        box-shadow: 0 0 10px $purple;
+                    }
+                    &.pink {
+                        border-color: $pink;
+                        box-shadow: 0 0 10px $pink;
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
