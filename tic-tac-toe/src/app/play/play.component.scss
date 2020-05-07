@@ -14,13 +14,22 @@
         &:nth-child(2) {
             width: 33.34%;
         }
-        .player-header {
+        .headers {
             margin-top: 10vh;
+        }
+        .player-header {
             text-align: center;
             font-size: 1rem;
             color: $white;
             text-shadow: 0px 0px 1rem rgba($white, 1);
             text-decoration: underline;
+        }
+        .game-messages {
+            font-size: 1.5rem;
+            color: $white;
+            text-shadow: 0px 0px 1rem rgba($white, 1);
+            text-align: center;
+            margin-top: 5vh;
         }
         .game-board {
             margin: 20vh auto;

@@ -1,46 +1,56 @@
 <div class="play">
     <div class="col">
-        <div class="player-header">
+        <div class="player-header headers">
             Player X
         </div>
     </div>
     <div class="col">
+        <div class="game-messages">
+            {{winner}}
+        </div>
+        <div *ngIf="isX; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <div class="game-messages player-header">
+                Go Player X!
+            </div>
+        </ng-template>
+        <ng-template #elseBlock>
+            <div class="game-messages player-header">
+                Go Player O!
+            </div>
+        </ng-template>
         <div class="game-board">
-            <div class="box left-bottom-border">
-                <div class="x green"></div>
+            <div class="box left-bottom-border" (click)="registerMove('box1')">
+                <div ngClass={{boardSections.box1}}></div>
             </div>
-            <div class="box left-bottom-border">
-                <div class="o green"></div>
+            <div class="box left-bottom-border" (click)="registerMove('box2')">
+                <div ngClass={{boardSections.box2}}></div>
             </div>
-            <div class="box">
-                <div class="x purple"></div>
+            <div class="box" (click)="registerMove('box3')">
+                <div ngClass={{boardSections.box3}}></div>
             </div>
-            <div class="box left-bottom-border">
-                <div class="box">
-                    <div class="o blue"></div>
-                </div>
+            <div class="box left-bottom-border" (click)="registerMove('box4')">
+                <div ngClass={{boardSections.box4}}></div>
             </div>
-            <div class="box left-bottom-border">
-                <div class="o pink"></div>
+            <div class="box left-bottom-border" (click)="registerMove('box5')">
+                <div ngClass={{boardSections.box5}}></div>
             </div>
-            <div class="box top-bottom-border">
-                <div class="x red"></div>
+            <div class="box top-bottom-border" (click)="registerMove('box6')">
+                <div ngClass={{boardSections.box6}}></div>
             </div>
-            <div class="box">
-                <div class="box">
-                    <div class="o purple"></div>
-                </div>
+            <div class="box" (click)="registerMove('box7')">
+                <div ngClass={{boardSections.box7}}></div>
             </div>
-            <div class="box left-right-border">
-                <div class="x orange"></div>
+            <div class="box left-right-border" (click)="registerMove('box8')">
+                <div ngClass={{boardSections.box8}}></div>
             </div>
-            <div class="box">
-                <div class="x yellow"></div>
+            <div class="box" (click)="registerMove('box9')">
+                <div ngClass={{boardSections.box9}}></div>
             </div>
         </div>
     </div>
     <div class="col">
-        <div class="player-header">
+        <div class="player-header headers">
             Player O
         </div>
     </div>
