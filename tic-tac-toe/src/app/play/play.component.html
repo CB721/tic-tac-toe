@@ -18,10 +18,28 @@
         </ng-template>
         <ng-template #xInput>
             <div class="headers">
-                <input type="text" class="name-input" [(ngModel)]="playerXName">
-                <br>
-                <div style="margin-left: 5vw;">
-                    <button (click)="savePlayerName('x')" class="start-game">Save</button>
+                <div class="player-header">
+                    Enter your name
+                </div>
+                <div class="player-header">
+                    <input type="text" class="name-input" ngClass={{xColor}} [(ngModel)]="playerXName">
+                    <br>
+                    <div style="margin-left: 5vw;">
+                        <button (click)="savePlayerName('x')" class="save-name">Save</button>
+                    </div>
+                </div>
+                <div class="player-header">
+                    <select id="colors" class="color-select" ngClass={{xColor}} (change)="selectColor('x', $event.target.value)"
+                        style="width: 100%;">
+                        <option default>Select a color</option>
+                        <option value="red">Red</option>
+                        <option value="orange">Orange</option>
+                        <option value="yellow">Yelllow</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                        <option value="pink">Pink</option>
+                    </select>
                 </div>
             </div>
         </ng-template>
@@ -98,10 +116,28 @@
         </ng-template>
         <ng-template #oInput>
             <div class="headers">
-                <input type="text" class="name-input" [(ngModel)]="playerOName">
-                <br>
-                <div style="margin-left: 5vw;">
-                    <button (click)="savePlayerName('o')" class="start-game">Save</button>
+                <div class="player-header">
+                    Enter your name
+                </div>
+                <div class="player-header">
+                    <input type="text" class="name-input" ngClass={{oColor}} [(ngModel)]="playerOName">
+                    <br>
+                    <div style="margin-left: 5vw;">
+                        <button (click)="savePlayerName('o')" class="save-name">Save</button>
+                    </div>
+                </div>
+                <div class="player-header">
+                    <select id="colors" class="color-select" ngClass={{oColor}} (change)="selectColor('o', $event.target.value)"
+                        style="width: 100%;">
+                        <option default>Select a color</option>
+                        <option value="red">Red</option>
+                        <option value="orange">Orange</option>
+                        <option value="yellow">Yelllow</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                        <option value="pink">Pink</option>
+                    </select>
                 </div>
             </div>
         </ng-template>

@@ -33,8 +33,8 @@ export class PlayComponent implements OnInit {
   isX: boolean = true;
   isGameStart: boolean = true;
   // strings for the character
-  xColor: string = "blue";
-  oColor: string = "green";
+  xColor: string = "";
+  oColor: string = "";
   // string for declaring a winner
   winner: string = "";
   // inputs for users to add their names
@@ -72,6 +72,10 @@ export class PlayComponent implements OnInit {
     if (name === "x") this.playerXIsSaved = true;
     // if it is player o, set their name to be saved
     if (name === "o") this.playerOIsSaved = true;
+  }
+  selectColor(player, value) {
+    if (player === "x" && value) this.xColor = value;
+    if (player === "o" && value) this.oColor = value;
   }
   startGame() {
     // change game start to false
