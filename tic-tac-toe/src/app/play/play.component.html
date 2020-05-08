@@ -15,6 +15,11 @@
                     </div>
                 </ng-template>
             </div>
+            <div *ngIf="previousGames" class="previous-games">
+                <div *ngFor="let game of previousGames" class="game-item" ngClass={{game.xColor}}>
+                    {{game.winPlayer === 'x' ? "You won!" : game.winPlayer === 'tie' ? "Tie!" : "You lost!"}}
+                </div>
+            </div>
         </ng-template>
         <ng-template #xInput>
             <div class="headers">
@@ -54,12 +59,12 @@
             <div *ngIf="isX; then xBlock else oBlock"></div>
             <ng-template #xBlock>
                 <div class="game-messages player-header">
-                    Go Player X!
+                    Go Player {{playerXName ? playerXName : 'X'}}!
                 </div>
             </ng-template>
             <ng-template #oBlock>
                 <div class="game-messages player-header">
-                    Go Player O!
+                    Go Player {{playerOName ? playerOName : 'O'}}!
                 </div>
             </ng-template>
             <div class="game-board">
@@ -86,6 +91,11 @@
                         Player X
                     </div>
                 </ng-template>
+            </div>
+            <div *ngIf="previousGames" class="previous-games">
+                <div *ngFor="let game of previousGames" class="game-item" ngClass={{game.oColor}}>
+                    {{game.winPlayer === 'o' ? "You won!" : game.winPlayer === 'tie' ? "Tie!" : "You lost!"}}
+                </div>
             </div>
         </ng-template>
         <ng-template #oInput>

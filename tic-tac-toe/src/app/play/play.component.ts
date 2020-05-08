@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-play',
@@ -78,12 +79,15 @@ export class PlayComponent implements OnInit {
   oColor: string = "";
   // string for declaring a winner
   winner: string = "";
+  winnerName: string = "";
   // inputs for users to add their names
   playerXName: string = "";
   playerOName: string = "";
   playerXIsSaved: boolean = false;
   playerOIsSaved: boolean = false;
 
+  // array of previous games
+  previousGames: (string | Object)[][]= [];
   ngOnInit(): void {
     // check local storage for existing game
     const savedGame = JSON.parse(localStorage.getItem("currentGame"));
@@ -114,10 +118,16 @@ export class PlayComponent implements OnInit {
         this.playerOName = playerNames["o"];
       }
     }
+    // check for previous games
+    this.checkPreviousGames();
     // this._http.getJokes().subscribe(data => {
     //   this.jokes = data["value"];
     //   console.log(this.jokes);
     // });
+  }
+  checkPreviousGames() {
+    const savedPreviousGames = JSON.parse(localStorage.getItem("previousGames"));
+    this.previousGames = savedPreviousGames;
   }
   // jokes: Object;
   savePlayerName(name) {
@@ -142,9 +152,10 @@ export class PlayComponent implements OnInit {
     if (randomNum) {
       this.isX = false;
     }
+    // check previous games
+    this.checkPreviousGames();
   }
   registerMove(index) {
-    console.log(this.boardSections);
     // if a winner has been selected, a previous game has been won
     if (this.winner) {
       // clear the winner and reset the board
@@ -165,11 +176,12 @@ export class PlayComponent implements OnInit {
     // check the winner
     // if someone has won, display winning message
     if (this.checkWinner()) {
-      this.winner = `${this.isX ? "Player X Wins!" : "Player O Wins!"}`
+      this.winner = `${this.isX ? "Player X Wins!" : "Player O Wins!"}`;
+      this.winnerName = `${this.isX ? 'x' : 'o'}`;
       // switch to the next player
       this.isX = !this.isX;
       // save current game to list of previous games
-      this.saveCompleteGame();
+      this.saveCompleteGame(this.winnerName);
     } else {
       // saved to local storage
       localStorage.setItem("currentGame", JSON.stringify(this.boardSections))
@@ -210,7 +222,7 @@ export class PlayComponent implements OnInit {
       // show message letting user know the game was a tie
       this.winner = "Tie!";
       // save the game to the previous games
-      this.saveCompleteGame();
+      this.saveCompleteGame('tie');
       // wait three seconds before clearing the winner message, resetting the board and updating local storage
       setTimeout(() => {
         this.isGameStart = true;
@@ -262,18 +274,30 @@ export class PlayComponent implements OnInit {
       }
     ]
   }
-  saveCompleteGame(): void {
+  saveCompleteGame(winPlayer): void {
+    // create new array with board and who won
+    let saveGame: {
+      winPlayer: String,
+      xColor: String,
+      oColor: String,
+      board: { border: String, selection: String }[]
+    } = {
+      winPlayer: winPlayer,
+      xColor: this.xColor,
+      oColor: this.oColor,
+      board: this.boardSections
+    }
     // grab all saved games
     const savedGames = JSON.parse(localStorage.getItem("previousGames"));
     // if there are any previous games saved to local storage
     if (savedGames) {
       // add current game to the beginning of the array
-      savedGames.unshift(this.boardSections);
+      savedGames.unshift(saveGame);
       // save to local storage
       localStorage.setItem("previousGames", JSON.stringify(savedGames));
     } else {
       // if there aren't any games currently in local storage, save the current game
-      localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
+      localStorage.setItem("previousGames", JSON.stringify([saveGame]));
     }
     // remove current game from local storage
     localStorage.removeItem("currentGame");

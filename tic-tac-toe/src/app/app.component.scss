@@ -45,11 +45,17 @@ $grey: #242424;
         &:focus {
             box-shadow: 0 0 0.8rem $red;
         }
+        &:hover {
+            box-shadow: 0 0 0.8rem $red;
+        }
     }
     &.orange {
         border-color: $orange;
         color: $orange;
         &:focus {
+            box-shadow: 0 0 0.8rem $orange;
+        }
+        &:hover {
             box-shadow: 0 0 0.8rem $orange;
         }
     }
@@ -59,11 +65,17 @@ $grey: #242424;
         &:focus {
             box-shadow: 0 0 0.8rem $yellow;
         }
+        &:hover {
+            box-shadow: 0 0 0.8rem $yellow;
+        }
     }
     &.green {
         border-color: $green;
         color: $green;
         &:focus {
+            box-shadow: 0 0 0.8rem $green;
+        }
+        &:hover {
             box-shadow: 0 0 0.8rem $green;
         }
     }
@@ -73,6 +85,9 @@ $grey: #242424;
         &:focus {
             box-shadow: 0 0 0.8rem $blue;
         }
+        &:hover {
+            box-shadow: 0 0 0.8rem $blue;
+        }
     }
     &.purple {
         border-color: $purple;
@@ -80,11 +95,17 @@ $grey: #242424;
         &:focus {
             box-shadow: 0 0 0.8rem $purple;
         }
+        &:hover {
+            box-shadow: 0 0 0.8rem $purple;
+        }
     }
     &.pink {
         border-color: $pink;
         color: $pink;
         &:focus {
+            box-shadow: 0 0 0.8rem $pink;
+        }
+        &:hover {
             box-shadow: 0 0 0.8rem $pink;
         }
     }
