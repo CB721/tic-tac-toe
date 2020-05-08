@@ -1,8 +1,30 @@
 <div class="play">
     <div class="col">
-        <div class="player-header headers">
-            Player X
-        </div>
+        <div *ngIf="isGameStart && !playerXIsSaved; then xInput else xName"></div>
+        <ng-template #xName>
+            <div>
+                <div *ngIf="playerXName; then showXName else showDefault"></div>
+                <ng-template #showXName>
+                    <div class="player-header headers">
+                        {{ playerXName }}
+                    </div>
+                </ng-template>
+                <ng-template #showDefault>
+                    <div class="player-header headers">
+                        Player X
+                    </div>
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #xInput>
+            <div class="headers">
+                <input type="text" class="name-input" [(ngModel)]="playerXName">
+                <br>
+                <div style="margin-left: 5vw;">
+                    <button (click)="savePlayerName('x')" class="start-game">Save</button>
+                </div>
+            </div>
+        </ng-template>
     </div>
     <div class="col">
         <div class="game-messages">
@@ -15,13 +37,13 @@
             </div>
         </ng-template>
         <ng-template #gameBlock>
-            <div *ngIf="isX; then thenBlock else elseBlock"></div>
-            <ng-template #thenBlock>
+            <div *ngIf="isX; then xBlock else oBlock"></div>
+            <ng-template #xBlock>
                 <div class="game-messages player-header">
                     Go Player X!
                 </div>
             </ng-template>
-            <ng-template #elseBlock>
+            <ng-template #oBlock>
                 <div class="game-messages player-header">
                     Go Player O!
                 </div>
@@ -58,8 +80,30 @@
         </ng-template>
     </div>
     <div class="col">
-        <div class="player-header headers">
-            Player O
-        </div>
+        <div *ngIf="isGameStart && !playerOIsSaved; then oInput else oName"></div>
+        <ng-template #oName>
+            <div>
+                <div *ngIf="playerOName; then showOName else showODefault"></div>
+                <ng-template #showOName>
+                    <div class="player-header headers">
+                        {{ playerOName }}
+                    </div>
+                </ng-template>
+                <ng-template #showODefault>
+                    <div class="player-header headers">
+                        Player X
+                    </div>
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #oInput>
+            <div class="headers">
+                <input type="text" class="name-input" [(ngModel)]="playerOName">
+                <br>
+                <div style="margin-left: 5vw;">
+                    <button (click)="savePlayerName('o')" class="start-game">Save</button>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>

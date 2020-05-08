@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
+  constructor() { }
   // object to track which player has clicked which box
   boardSections: {
     box1: string,
@@ -36,20 +37,12 @@ export class PlayComponent implements OnInit {
   oColor: string = "green";
   // string for declaring a winner
   winner: string = "";
-  constructor() {
-    console.log(this.boardSections.box1);
-  }
-  startGame() {
-    // change game start to false
-    this.isGameStart = false;
-    // randomly select which user will go first
-    // generate number between 0 and 1
-    const randomNum = Math.floor(Math.random() * 2);
-    // if it is one, set it to o's turn, otherwise, leave it as x's turn
-    if (randomNum) {
-      this.isX = false;
-    }
-  }
+  // inputs for users to add their names
+  playerXName: string = "";
+  playerOName: string = "";
+  playerXIsSaved: boolean = false;
+  playerOIsSaved: boolean = false;
+
   ngOnInit(): void {
     // check local storage for existing game
     const savedGame = JSON.parse(localStorage.getItem("currentGame"));
@@ -72,6 +65,23 @@ export class PlayComponent implements OnInit {
       if (oTally < xTally) {
         this.isX = false;
       }
+    }
+  }
+  savePlayerName(name) {
+    // if it is player x, set their name to be saved
+    if (name === "x") this.playerXIsSaved = true;
+    // if it is player o, set their name to be saved
+    if (name === "o") this.playerOIsSaved = true;
+  }
+  startGame() {
+    // change game start to false
+    this.isGameStart = false;
+    // randomly select which user will go first
+    // generate number between 0 and 1
+    const randomNum = Math.floor(Math.random() * 2);
+    // if it is one, set it to o's turn, otherwise, leave it as x's turn
+    if (randomNum) {
+      this.isX = false;
     }
   }
   registerMove(box) {
@@ -105,40 +115,6 @@ export class PlayComponent implements OnInit {
       // switch to next player
       this.isX = !this.isX;
     }
-  }
-  resetBoard(): void {
-    // set all of the boxes back to an empty string
-    this.boardSections = {
-      box1: "",
-      box2: "",
-      box3: "",
-      box4: "",
-      box5: "",
-      box6: "",
-      box7: "",
-      box8: "",
-      box9: ""
-    }
-  }
-  saveCompleteGame(): void {
-    // grab all saved games
-    const savedGames = JSON.parse(localStorage.getItem("previousGames"));
-    // if there are any previous games saved to local storage
-    if (savedGames) {
-      // add current game to the beginning of the array
-      savedGames.unshift(this.boardSections);
-      // save to local storage
-      localStorage.setItem("previousGames", JSON.stringify(savedGames));
-    } else {
-      // if there aren't any games currently in local storage, save the current game
-      localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
-    }
-    // wait three seconds before resetting the board
-    setTimeout(() => {
-      this.isGameStart = true;
-      this.winner = "";
-      this.resetBoard();
-    }, 3000);
   }
   // win can be horizontal, vertical or diagonal
   checkWinner(): boolean {
@@ -181,5 +157,39 @@ export class PlayComponent implements OnInit {
         this.resetBoard();
       }, 3000);
     }
+  }
+  resetBoard(): void {
+    // set all of the boxes back to an empty string
+    this.boardSections = {
+      box1: "",
+      box2: "",
+      box3: "",
+      box4: "",
+      box5: "",
+      box6: "",
+      box7: "",
+      box8: "",
+      box9: ""
+    }
+  }
+  saveCompleteGame(): void {
+    // grab all saved games
+    const savedGames = JSON.parse(localStorage.getItem("previousGames"));
+    // if there are any previous games saved to local storage
+    if (savedGames) {
+      // add current game to the beginning of the array
+      savedGames.unshift(this.boardSections);
+      // save to local storage
+      localStorage.setItem("previousGames", JSON.stringify(savedGames));
+    } else {
+      // if there aren't any games currently in local storage, save the current game
+      localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
+    }
+    // wait three seconds before resetting the board
+    setTimeout(() => {
+      this.isGameStart = true;
+      this.winner = "";
+      this.resetBoard();
+    }, 3000);
   }
 }

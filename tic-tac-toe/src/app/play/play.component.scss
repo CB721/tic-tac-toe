@@ -4,7 +4,7 @@
     width: 100vw;
     height: 80vh;
     overflow: scroll;
-    background: rgba($color: $black, $alpha: 0.965);
+    background: rgba($color: $black, $alpha: 1);
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
@@ -16,6 +16,25 @@
         }
         .headers {
             margin-top: 10vh;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .name-input {
+                width: 40%;
+                height: 10vh;
+                border-radius: 1rem;
+                border-color: $orange;
+                background-color: $black;
+                color: $orange;
+                transition: 0.3s;
+                padding: 0 1rem;
+                font-size: 2rem;
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 10px $orange;
+                    text-shadow: none;
+                }
+            }
         }
         .player-header {
             text-align: center;
@@ -205,7 +224,6 @@
 }
 .start-game {
     color: $white;
-    width: 50%;
     @include default-button($white, $red);
     &:hover {
         cursor: pointer;
