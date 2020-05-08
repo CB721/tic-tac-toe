@@ -2,7 +2,7 @@
     <div class="col">
         <div *ngIf="isGameStart && !playerXIsSaved; then xInput else xName"></div>
         <ng-template #xName>
-            <div>
+            <div class="headers">
                 <div *ngIf="playerXName; then showXName else showDefault"></div>
                 <ng-template #showXName>
                     <div class="player-header headers">
@@ -22,7 +22,7 @@
                     Enter your name
                 </div>
                 <div class="player-header">
-                    <input type="text" class="name-input" ngClass={{xColor}} [(ngModel)]="playerXName">
+                    <input type="text" class="name-input" ngClass={{xColor}} [(ngModel)]="playerXName" value={{playerXName}}>
                     <br>
                     <div style="margin-left: 5vw;">
                         <button (click)="savePlayerName('x')" class="save-name">Save</button>
@@ -32,13 +32,9 @@
                     <select id="colors" class="color-select" ngClass={{xColor}} (change)="selectColor('x', $event.target.value)"
                         style="width: 100%;">
                         <option default>Select a color</option>
-                        <option value="red">Red</option>
-                        <option value="orange">Orange</option>
-                        <option value="yellow">Yelllow</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                        <option value="purple">Purple</option>
-                        <option value="pink">Pink</option>
+                        <option *ngFor="let color of colorOptions" value={{color.color}}>
+                            {{color.color}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -67,32 +63,10 @@
                 </div>
             </ng-template>
             <div class="game-board">
-                <div class="box left-bottom-border" (click)="registerMove('box1')">
-                    <div ngClass={{boardSections.box1}}></div>
-                </div>
-                <div class="box left-bottom-border" (click)="registerMove('box2')">
-                    <div ngClass={{boardSections.box2}}></div>
-                </div>
-                <div class="box" (click)="registerMove('box3')">
-                    <div ngClass={{boardSections.box3}}></div>
-                </div>
-                <div class="box left-bottom-border" (click)="registerMove('box4')">
-                    <div ngClass={{boardSections.box4}}></div>
-                </div>
-                <div class="box left-bottom-border" (click)="registerMove('box5')">
-                    <div ngClass={{boardSections.box5}}></div>
-                </div>
-                <div class="box top-bottom-border" (click)="registerMove('box6')">
-                    <div ngClass={{boardSections.box6}}></div>
-                </div>
-                <div class="box" (click)="registerMove('box7')">
-                    <div ngClass={{boardSections.box7}}></div>
-                </div>
-                <div class="box left-right-border" (click)="registerMove('box8')">
-                    <div ngClass={{boardSections.box8}}></div>
-                </div>
-                <div class="box" (click)="registerMove('box9')">
-                    <div ngClass={{boardSections.box9}}></div>
+                <div *ngFor="let box of boardSections; let boxIndex=index;">
+                    <div ngClass={{box.border}} (click)="registerMove(boxIndex)">
+                        <div ngClass={{box.selection}}></div>
+                    </div>
                 </div>
             </div>
         </ng-template>
@@ -100,7 +74,7 @@
     <div class="col">
         <div *ngIf="isGameStart && !playerOIsSaved; then oInput else oName"></div>
         <ng-template #oName>
-            <div>
+            <div class="headers">
                 <div *ngIf="playerOName; then showOName else showODefault"></div>
                 <ng-template #showOName>
                     <div class="player-header headers">
@@ -120,7 +94,7 @@
                     Enter your name
                 </div>
                 <div class="player-header">
-                    <input type="text" class="name-input" ngClass={{oColor}} [(ngModel)]="playerOName">
+                    <input type="text" class="name-input" ngClass={{oColor}} [(ngModel)]="playerOName" value={{playerOName}}>
                     <br>
                     <div style="margin-left: 5vw;">
                         <button (click)="savePlayerName('o')" class="save-name">Save</button>
@@ -130,13 +104,9 @@
                     <select id="colors" class="color-select" ngClass={{oColor}} (change)="selectColor('o', $event.target.value)"
                         style="width: 100%;">
                         <option default>Select a color</option>
-                        <option value="red">Red</option>
-                        <option value="orange">Orange</option>
-                        <option value="yellow">Yelllow</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                        <option value="purple">Purple</option>
-                        <option value="pink">Pink</option>
+                        <option *ngFor="let color of colorOptions" value={{color.color}}>
+                            {{color.color}}
+                        </option>
                     </select>
                 </div>
             </div>

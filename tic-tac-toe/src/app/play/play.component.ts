@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-play',
@@ -6,29 +7,69 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
-  constructor() { }
-  // object to track which player has clicked which box
-  boardSections: {
-    box1: string,
-    box2: String,
-    box3: String,
-    box4: String,
-    box5: String,
-    box6: String,
-    box7: String,
-    box8: String,
-    box9: String
-  } = {
-      box1: "",
-      box2: "",
-      box3: "",
-      box4: "",
-      box5: "",
-      box6: "",
-      box7: "",
-      box8: "",
-      box9: ""
+  constructor(private _http: HttpService) { }
+  // array of objects to track which player has clicked which box
+  boardSections: { border: String, selection: String }[] = [
+    {
+      border: "box left-bottom-border",
+      selection: ""
+    },
+    {
+      border: "box left-bottom-border",
+      selection: ""
+    },
+    {
+      border: "box",
+      selection: ""
+    },
+    {
+      border: "box left-bottom-border",
+      selection: ""
+    },
+    {
+      border: "box left-bottom-border",
+      selection: ""
+    },
+    {
+      border: "box top-bottom-border",
+      selection: ""
+    },
+    {
+      border: "box",
+      selection: ""
+    },
+    {
+      border: "box left-right-border",
+      selection: ""
+    },
+    {
+      border: "box",
+      selection: ""
     }
+  ]
+  colorOptions: {color: String}[] = [
+    {
+      color: "red"
+    },
+    {
+      color: "orange"
+    },
+    {
+      color: "yellow"
+    },
+    {
+      color: "green"
+    },
+    {
+      color: "blue"
+    },
+    {
+      color: "purple"
+    },
+    {
+      color: "pink"
+    }
+  ]
   // boolean to track whose turn it is and if the game has started
   isX: boolean = true;
   isGameStart: boolean = true;
@@ -54,10 +95,10 @@ export class PlayComponent implements OnInit {
       // tally for how many x's there are
       let xTally: number = 0;
       let oTally: number = 0;
-      for (const box in savedGame) {
-        if (savedGame[box].indexOf("x") >= 0) {
+      for (let i = 0; i < savedGame.length; i++) {
+        if (savedGame[i].selection.indexOf("x") >= 0) {
           xTally++;
-        } else if (savedGame[box].indexOf("o") >= 0) {
+        } else if (savedGame[i].selection.indexOf("o") >= 0) {
           oTally++;
         }
       }
@@ -65,13 +106,27 @@ export class PlayComponent implements OnInit {
       if (oTally < xTally) {
         this.isX = false;
       }
+      // check for saved names
+      const playerNames = JSON.parse(localStorage.getItem("playerNames"));
+      if (playerNames && playerNames["x"]) {
+        this.playerXName = playerNames["x"];
+      } else if (playerNames && playerNames["o"]) {
+        this.playerOName = playerNames["o"];
+      }
     }
+    // this._http.getJokes().subscribe(data => {
+    //   this.jokes = data["value"];
+    //   console.log(this.jokes);
+    // });
   }
+  // jokes: Object;
   savePlayerName(name) {
     // if it is player x, set their name to be saved
     if (name === "x") this.playerXIsSaved = true;
     // if it is player o, set their name to be saved
     if (name === "o") this.playerOIsSaved = true;
+    // save names to localStorage
+    localStorage.setItem("playerNames", JSON.stringify({ x: this.playerXName, o: this.playerOName }));
   }
   selectColor(player, value) {
     if (player === "x" && value) this.xColor = value;
@@ -88,22 +143,24 @@ export class PlayComponent implements OnInit {
       this.isX = false;
     }
   }
-  registerMove(box) {
+  registerMove(index) {
+    console.log(this.boardSections);
     // if a winner has been selected, a previous game has been won
     if (this.winner) {
       // clear the winner and reset the board
       this.winner = "";
       this.resetBoard();
+      this.isGameStart = true;
     }
     // check if selected box has already been clicked
-    if (this.boardSections[box]) {
+    if (this.boardSections[index].selection) {
       return;
     }
     // update board
     if (this.isX) {
-      this.boardSections[box] = `x ${this.xColor}`;
+      this.boardSections[index].selection = `x ${this.xColor}`;
     } else {
-      this.boardSections[box] = `o ${this.oColor}`;
+      this.boardSections[index].selection = `o ${this.oColor}`;
     }
     // check the winner
     // if someone has won, display winning message
@@ -122,31 +179,31 @@ export class PlayComponent implements OnInit {
   }
   // win can be horizontal, vertical or diagonal
   checkWinner(): boolean {
-    // check winning combinations for every row connected to box1
-    if (this.boardSections.box1 === this.boardSections.box2 && this.boardSections.box1 === this.boardSections.box3 && this.boardSections.box1) {
+    // check winning combinations for every row connected to box 1
+    if (this.boardSections[0]["selection"] === this.boardSections[1]["selection"] && this.boardSections[0]["selection"] === this.boardSections[2]["selection"] && this.boardSections[0]["selection"]) {
       return true;
-    } else if (this.boardSections.box1 === this.boardSections.box5 && this.boardSections.box1 === this.boardSections.box9 && this.boardSections.box1) {
+    } else if (this.boardSections[0]["selection"] === this.boardSections[4]["selection"] && this.boardSections[0]["selection"] === this.boardSections[8]["selection"] && this.boardSections[0]["selection"]) {
       return true;
-    } else if (this.boardSections.box1 === this.boardSections.box4 && this.boardSections.box1 === this.boardSections.box7 && this.boardSections.box1) {
-      return true;
-    }
-    // check winning combinations for every row connected to box5
-    else if (this.boardSections.box5 === this.boardSections.box3 && this.boardSections.box5 === this.boardSections.box7 && this.boardSections.box5) {
-      return true;
-    } else if (this.boardSections.box5 === this.boardSections.box2 && this.boardSections.box5 === this.boardSections.box8 && this.boardSections.box5) {
-      return true;
-    } else if (this.boardSections.box5 === this.boardSections.box4 && this.boardSections.box5 === this.boardSections.box6 && this.boardSections.box5) {
+    } else if (this.boardSections[0]["selection"] === this.boardSections[3]["selection"] && this.boardSections[0]["selection"] === this.boardSections[6]["selection"] && this.boardSections[0]["selection"]) {
       return true;
     }
-    // check winning combinations for every row connected to box9
-    else if (this.boardSections.box9 === this.boardSections.box6 && this.boardSections.box9 === this.boardSections.box3 && this.boardSections.box9) {
+    // check winning combinations for every row connected to box 5
+    else if (this.boardSections[4]["selection"] === this.boardSections[2]["selection"] && this.boardSections[4]["selection"] === this.boardSections[6]["selection"] && this.boardSections[4]["selection"]) {
       return true;
-    } else if (this.boardSections.box9 === this.boardSections.box8 && this.boardSections.box9 === this.boardSections.box7 && this.boardSections.box9) {
+    } else if (this.boardSections[4]["selection"] === this.boardSections[1]["selection"] && this.boardSections[4]["selection"] === this.boardSections[7]["selection"] && this.boardSections[4]["selection"]) {
+      return true;
+    } else if (this.boardSections[4]["selection"] === this.boardSections[3]["selection"] && this.boardSections[4]["selection"] === this.boardSections[5]["selection"] && this.boardSections[4]["selection"]) {
+      return true;
+    }
+    // check winning combinations for every row connected to box 9
+    else if (this.boardSections[8]["selection"] === this.boardSections[5]["selection"] && this.boardSections[8]["selection"] === this.boardSections[2]["selection"] && this.boardSections[8]["selection"]) {
+      return true;
+    } else if (this.boardSections[8]["selection"] === this.boardSections[7]["selection"] && this.boardSections[8]["selection"] === this.boardSections[6]["selection"] && this.boardSections[8]["selection"]) {
       return true;
     } else {
-      // iterate over entire object to check if all boxes have been selected
-      for (const box in this.boardSections) {
-        if (!this.boardSections[box]) {
+      // iterate over entire board sections to check if all boxes have been selected
+      for (let i = 0; i < this.boardSections.length; i++) {
+        if (!this.boardSections[i].selection) {
           return false;
         }
       }
@@ -163,18 +220,47 @@ export class PlayComponent implements OnInit {
     }
   }
   resetBoard(): void {
+    // clear localstorage of current game
+    localStorage.removeItem("currentGame");
     // set all of the boxes back to an empty string
-    this.boardSections = {
-      box1: "",
-      box2: "",
-      box3: "",
-      box4: "",
-      box5: "",
-      box6: "",
-      box7: "",
-      box8: "",
-      box9: ""
-    }
+    this.boardSections = [
+      {
+        border: "box left-bottom-border",
+        selection: ""
+      },
+      {
+        border: "box left-bottom-border",
+        selection: ""
+      },
+      {
+        border: "box",
+        selection: ""
+      },
+      {
+        border: "box left-bottom-border",
+        selection: ""
+      },
+      {
+        border: "box left-bottom-border",
+        selection: ""
+      },
+      {
+        border: "box top-bottom-border",
+        selection: ""
+      },
+      {
+        border: "box",
+        selection: ""
+      },
+      {
+        border: "box left-right-border",
+        selection: ""
+      },
+      {
+        border: "box",
+        selection: ""
+      }
+    ]
   }
   saveCompleteGame(): void {
     // grab all saved games
@@ -189,6 +275,8 @@ export class PlayComponent implements OnInit {
       // if there aren't any games currently in local storage, save the current game
       localStorage.setItem("previousGames", JSON.stringify([this.boardSections]));
     }
+    // remove current game from local storage
+    localStorage.removeItem("currentGame");
     // wait three seconds before resetting the board
     setTimeout(() => {
       this.isGameStart = true;
@@ -196,4 +284,6 @@ export class PlayComponent implements OnInit {
       this.resetBoard();
     }, 3000);
   }
+
+
 }
