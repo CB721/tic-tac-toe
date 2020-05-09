@@ -10,9 +10,9 @@
     flex-wrap: wrap;
     .col {
         height: 100%;
-        width: 33.33%;
+        width: 30%;
         &:nth-child(2) {
-            width: 33.34%;
+            width: 40%;
         }
         .headers {
             margin-top: 10vh;
@@ -67,12 +67,14 @@
             margin-top: 5vh;
         }
         .game-board {
-            margin: 20vh auto;
+            margin: 10vh auto;
             width: 27vw;
             height: 27vw;
             display: grid;
             grid-template-rows: 9vw 9vw 9vw;
             grid-template-columns: 9vw 9vw 9vw;
+            -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(10%, transparent), to(rgba($white, 0.2)));
+            box-shadow: 0px 0px 8px 2px #000000;
             .box {
                 float: left;
                 width: 9vw;
@@ -94,17 +96,6 @@
                     height: 6vw;
                     position: relative;
                     margin: 0 auto;
-                    &:before,
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        width: 6vw;
-                        height: 0.25rem;
-                        border-radius: 2px;
-                        bottom: 1.5vw;
-                        background-color: $grey;
-                        box-shadow: 0 0 10px $grey;
-                    }
                     &.red {
                         &:before,
                         &:after {
@@ -196,6 +187,19 @@
                             box-shadow: 0 0 10px $pink;
                         }
                     }
+                    &.grey {
+                        &:before,
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.25rem;
+                            border-radius: 2px;
+                            bottom: 1.5vw;
+                            background-color: $grey;
+                            box-shadow: 0 0 10px $grey;
+                        }
+                    }
                     &::before {
                         -webkit-transform: rotate(45deg);
                         -moz-transform: rotate(45deg);
@@ -213,8 +217,6 @@
                     height: 5vw;
                     border-radius: 50%;
                     border: 5px solid;
-                    border-color: $grey;
-                    box-shadow: 0 0 0.5rem $grey;
                     &.red {
                         border-color: $red;
                         box-shadow: 0 0 0.5rem $red;
@@ -242,6 +244,14 @@
                     &.pink {
                         border-color: $pink;
                         box-shadow: 0 0 0.5rem $pink;
+                    }
+                    &.grey {
+                        border-color: $grey;
+                        box-shadow: 0 0 0.5rem $grey;
+                    }
+                    &.gray {
+                        border-color: $grey;
+                        box-shadow: 0 0 0.5rem $grey;
                     }
                 }
                 &:hover {

@@ -48,7 +48,7 @@ export class PlayComponent implements OnInit {
       selection: ""
     }
   ]
-  colorOptions: {color: String}[] = [
+  colorOptions: { color: String }[] = [
     {
       color: "red"
     },
@@ -87,7 +87,7 @@ export class PlayComponent implements OnInit {
   playerOIsSaved: boolean = false;
 
   // array of previous games
-  previousGames: (string | Object)[][]= [];
+  previousGames: (string | Object)[][] = [];
   ngOnInit(): void {
     // check local storage for existing game
     const savedGame = JSON.parse(localStorage.getItem("currentGame"));
@@ -110,13 +110,13 @@ export class PlayComponent implements OnInit {
       if (oTally < xTally) {
         this.isX = false;
       }
-      // check for saved names
-      const playerNames = JSON.parse(localStorage.getItem("playerNames"));
-      if (playerNames && playerNames["x"]) {
-        this.playerXName = playerNames["x"];
-      } else if (playerNames && playerNames["o"]) {
-        this.playerOName = playerNames["o"];
-      }
+    }
+    // check for saved names
+    const playerNames = JSON.parse(localStorage.getItem("playerNames"));
+    if (playerNames && playerNames["x"]) {
+      this.playerXName = playerNames["x"];
+    } else if (playerNames && playerNames["o"]) {
+      this.playerOName = playerNames["o"];
     }
     // check for previous games
     this.checkPreviousGames();
@@ -154,6 +154,9 @@ export class PlayComponent implements OnInit {
     }
     // check previous games
     this.checkPreviousGames();
+    // if a color for either player hasnt been selected, set the color to be grey
+    if (!this.xColor) this.xColor = "grey";
+    if (!this.oColor) this.oColor = "grey";
   }
   registerMove(index) {
     // if a winner has been selected, a previous game has been won

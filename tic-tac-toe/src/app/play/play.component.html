@@ -59,12 +59,12 @@
             <div *ngIf="isX; then xBlock else oBlock"></div>
             <ng-template #xBlock>
                 <div class="game-messages player-header">
-                    Go Player {{playerXName ? playerXName : 'X'}}!
+                    Go {{playerXName ? playerXName : 'Player X'}}!
                 </div>
             </ng-template>
             <ng-template #oBlock>
                 <div class="game-messages player-header">
-                    Go Player {{playerOName ? playerOName : 'O'}}!
+                    Go {{playerOName ? playerOName : 'Player O'}}!
                 </div>
             </ng-template>
             <div class="game-board">
@@ -88,7 +88,7 @@
                 </ng-template>
                 <ng-template #showODefault>
                     <div class="player-header headers">
-                        Player X
+                        Player O
                     </div>
                 </ng-template>
             </div>

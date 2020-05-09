@@ -39,6 +39,9 @@ $grey: #242424;
 @mixin color-selection {
     color: $white;
     border-color: $white;
+    &:hover {
+        box-shadow: 0 0 0.8rem $white;
+    }
     &.red {
         border-color: $red;
         color: $red;
