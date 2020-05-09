@@ -1,27 +1,27 @@
 # TicTacToe
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
+An application where two users can play a classic Tic-tac-toe game.
 
-## Development server
+## View Project
+[Tic-Tac-Toe](https://cb721.github.io/tic-tac-toe/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project Walk-through
+![app](app-assets/images/tic-demo1.gif)
 
-## Code scaffolding
+## User Stories
+1) As a user and I want to play a a tic-tac-toe game
+2) As a user, I want to select a color for my moves
+3) As a user, I want to save progress as a I make a move
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
+* Angular
+* Typescript
+* SASS
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Future Improvements
+* Modal feature to show results of previous games on click
+* Additional games
+* CSS animations between starting game, during game and on completion
+* Home page game selection
+* Home page additional styling
+* Online multiplayer functionality
