@@ -1,8 +1,17 @@
 <div class="home">
-    <div class="game-desc">
-        A classic game re-imagined for a modern era
+    <div class="bg-boxes-wrapper">
+        <div *ngFor="let color of displayTiles;">
+            <div class="bg-box" ngClass={{color}}>
+                <div class="inner-box" ngClass={{color}}></div>
+            </div>
+        </div>
     </div>
-    <div class="play-link">
-        <a href="#" routerLink="/play">Play!</a>
+    <div class="home-main-details">
+        <div class="game-desc">
+            A classic game re-imagined for a modern era
+        </div>
+        <div class="play-link">
+            <a href="#" routerLink="/play">Play!</a>
+        </div>
     </div>
 </div>

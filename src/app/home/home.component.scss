@@ -6,25 +6,119 @@
     overflow: scroll;
     background: rgba($color: $black, $alpha: 0.965);
     display: block;
-    .game-desc {
-        font-family: Arial, Helvetica, sans-serif;
-        color: $white;
-        padding-top: 10vh;
-        line-height: 10vh;
-        font-size: 1.5rem;
-        text-align: center;
-    }
-    .play-link {
-        width: 40vw;
-        margin: 5vh 30vw;
-        @include default-button($white, $purple);
-        transition: 0.3s;
-        a {
-            text-decoration: none;
-            color: $white;
+    .bg-boxes-wrapper {
+        display: grid;
+        grid-template-rows: 19.375vh 19.375vh 19.375vh 19.375vh;
+        grid-template-columns: 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
+        z-index: 1;
+        margin-top: 2.5vh;
+        @media only screen and (max-width: 800px) {
+            grid-template-rows: 26vh 26vh;
+            grid-template-columns: 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw 14.28vw;
+        }
+        @media only screen and (max-width: 500px) {
+            grid-template-rows: 24.4vh 24.4vh 24.4vh;
+            grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+        }
+        .bg-box {
+            width: 8vw;
+            height: 15vh;
+            margin: 0 auto;
+            @media only screen and (max-width: 800px) {
+                margin: 0 auto;
+                width: 10vw;
+                height: 23vh;
+            }
+            @media only screen and (max-width: 500px) {
+                margin: 6.1vh auto;
+                width: 16vw;
+                height: 10vh;
+            }
+            background-color: $black;
+            z-index: 2;
+            @include color-selection("no");
+            border: 1px solid;
+            box-shadow: 0 0 0.5rem;
+            transition: 0.3s;
+            .inner-box {
+                @include color-selection("yes");
+                box-shadow: 0 0 1rem;
+                margin: 4vh auto;
+                width: 4vw;
+                height: 7vh;
+                z-index: 3;
+                transition: 0.3s;
+                @media only screen and (max-width: 800px) {
+                    margin: 5vh auto;
+                    width: 5vw;
+                    height: 12vh;
+                }
+                @media only screen and (max-width: 500px) {
+                    margin: 2.5vh auto;
+                    width: 8vw;
+                    height: 5vh;
+                }
+                &:hover {
+                    animation: expand-contract 3s linear infinite;
+                    @keyframes expand-contract {
+                        0% {
+                            transform: scale(1);
+                        }
+                        33% {
+                            transform: scale(1.3);
+                        }
+                        67% {
+                            transform: scale(0.7);
+                        }
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+                }
+            }
             &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+    .home-main-details {
+        position: absolute;
+        top: 30%;
+        left: 25%;
+        z-index: 500;
+        margin: 0 auto;
+        width: 50vw;
+        background-color: rgba($color: $black, $alpha: 0.9);
+        box-shadow: 0 0 1rem $black;
+        border-radius: 1rem;
+        @media only screen and(max-width: 500px) {
+            left: 5%;
+            width: 90vw;
+        }
+        .game-desc {
+            font-family: Arial, Helvetica, sans-serif;
+            color: $white;
+            line-height: 10vh;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 5;
+            @media only screen and (max-width: 500px) {
+                font-size: 1rem;
+            }
+        }
+        .play-link {
+            width: 40vw;
+            margin: 5vh auto;
+            @include default-button($white, $purple);
+            transition: 0.3s;
+            z-index: 5;
+            a {
                 text-decoration: none;
-                cursor: pointer;
+                color: $white;
+                &:hover {
+                    text-decoration: none;
+                    cursor: pointer;
+                }
             }
         }
     }

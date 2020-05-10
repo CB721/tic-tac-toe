@@ -32,7 +32,7 @@
                 &:focus {
                     outline: none;
                 }
-                @include color-selection;
+                @include color-selection("no");
             }
         }
         .player-header {
@@ -56,7 +56,7 @@
                 &:focus {
                     outline: none;
                 }
-                @include color-selection;
+                @include color-selection("no");
             }
         }
         .game-messages {
@@ -273,7 +273,7 @@
                 border-radius: 1rem;
                 transition: 0.3s;
                 text-align: center;
-                @include color-selection;
+                @include color-selection("no");
                 &:hover {
                     cursor: pointer;
                 }

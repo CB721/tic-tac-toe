@@ -37,7 +37,7 @@
                     <select id="colors" class="color-select" ngClass={{xColor}} (change)="selectColor('x', $event.target.value)"
                         style="width: 100%;">
                         <option default>Select a color</option>
-                        <option *ngFor="let color of colorOptions" value={{color.color}}>
+                        <option *ngFor="let color of colorOptions" value={{color.color}} class="color-option">
                             {{color.color}}
                         </option>
                     </select>
